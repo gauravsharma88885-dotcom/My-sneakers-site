@@ -1,5 +1,5 @@
- <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 
 body{
 font-family:Arial;
-background:#0f0f0f;
+background:#111;
 color:white;
 margin:0;
 padding:20px;
@@ -18,34 +18,17 @@ padding:20px;
 
 h1{
 text-align:center;
-margin-bottom:30px;
 }
 
 .highlight{
-color:#ff4747;
+color:#ff3b3b;
 }
 
-.search{
-display:flex;
-justify-content:center;
-margin-bottom:30px;
-}
-
-.search input{
-padding:10px;
-width:250px;
-border-radius:20px;
-border:none;
-background:#1f1f1f;
-color:white;
-}
-
-.gallery{
+.container{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
-max-width:1100px;
-margin:auto;
+margin-top:30px;
 }
 
 .card{
@@ -61,48 +44,32 @@ border-radius:10px;
 }
 
 .price{
-color:#ff4747;
-font-size:20px;
+color:#ff3b3b;
 margin:10px 0;
 }
 
 button{
-background:#ff4747;
+background:#ff3b3b;
 border:none;
-padding:10px 15px;
-border-radius:20px;
+padding:10px;
 color:white;
+border-radius:20px;
 cursor:pointer;
 }
 
-button:hover{
-background:#ff6b6b;
-}
-
-.cart{
-position:fixed;
-right:20px;
-top:20px;
+.admin{
+margin-top:40px;
 background:#1b1b1b;
-padding:15px;
-width:260px;
+padding:20px;
 border-radius:10px;
 }
 
-.cart h3{
-margin-top:0;
-}
-
-.cart-item{
-display:flex;
-justify-content:space-between;
-font-size:14px;
-margin-bottom:6px;
-}
-
-.remove{
-color:red;
-cursor:pointer;
+input{
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border-radius:10px;
+border:none;
 }
 
 </style>
@@ -113,21 +80,19 @@ cursor:pointer;
 
 <h1>Sneaker <span class="highlight">Vault</span></h1>
 
-<div class="search">
-<input type="text" id="search" placeholder="Search sneakers">
-</div>
+<div id="products" class="container"></div>
 
-<div class="gallery" id="products"></div>
+<div class="admin">
 
-<div class="cart">
+<h2>Admin Panel</h2>
 
-<h3>🛒 Cart</h3>
+<input id="name" placeholder="Product Name">
 
-<div id="cartItems"></div>
+<input id="price" placeholder="Price">
 
-<p>Total: $<span id="total">0</span></p>
+<input id="image" placeholder="Image URL">
 
-<button onclick="order()">Order on WhatsApp</button>
+<button onclick="addProduct()">Add Product</button>
 
 </div>
 
@@ -135,38 +100,33 @@ cursor:pointer;
 
 let phone="918398876868"
 
-let productList=[
+let products=JSON.parse(localStorage.getItem("products")) || []
 
-{name:"Air Jordan 1",price:170,img:"https://images.stockx.com/images/Air-Jordan-1-Retro-High-OG-Chicago-Reimagined.jpg"},
-
-{name:"Yeezy 350",price:220,img:"https://images.stockx.com/images/adidas-Yeezy-Boost-350-V2-Zebra-2023.jpg"},
-
-{name:"Nike Dunk Low",price:110,img:"https://images.stockx.com/images/Nike-Dunk-Low-Panda-2021.jpg"},
-
-{name:"Air Force 1",price:130,img:"https://images.stockx.com/images/Nike-Air-Force-1-07-White.jpg"}
-
-]
-
-let cart=[]
+function saveProducts(){
+localStorage.setItem("products",JSON.stringify(products))
+}
 
 function loadProducts(){
 
 let container=document.getElementById("products")
+
 container.innerHTML=""
 
-productList.forEach((p,i)=>{
+products.forEach((p,i)=>{
 
 container.innerHTML+=`
 
 <div class="card">
 
-<img src="${p.img}">
+<img src="${p.image}">
 
 <h3>${p.name}</h3>
 
 <div class="price">$${p.price}</div>
 
-<button onclick="addCart(${i})">Add to Cart</button>
+<button onclick="order('${p.name}',${p.price})">
+Order on WhatsApp
+</button>
 
 </div>
 
@@ -176,81 +136,29 @@ container.innerHTML+=`
 
 }
 
-function addCart(index){
+function addProduct(){
 
-cart.push(productList[index])
+let name=document.getElementById("name").value
+let price=document.getElementById("price").value
+let image=document.getElementById("image").value
 
-updateCart()
+products.push({name,price,image})
 
-}
-
-function removeCart(i){
-
-cart.splice(i,1)
-
-updateCart()
-
-}
-
-function updateCart(){
-
-let cartItems=document.getElementById("cartItems")
-
-cartItems.innerHTML=""
-
-let total=0
-
-cart.forEach((item,i)=>{
-
-total+=item.price
-
-cartItems.innerHTML+=`
-
-<div class="cart-item">
-
-${item.name} - $${item.price}
-
-<span class="remove" onclick="removeCart(${i})">x</span>
-
-</div>
-
-`
-
-})
-
-document.getElementById("total").innerText=total
-
-}
-
-function order(){
-
-let message="Hi I want to order:%0A"
-
-let total=0
-
-cart.forEach(item=>{
-
-message+=item.name+" - $"+item.price+"%0A"
-
-total+=item.price
-
-})
-
-message+="Total: $"+total
-
-window.open("https://wa.me/"+phone+"?text="+message)
-
-}
-
-document.getElementById("search").addEventListener("keyup",function(){
-
-let term=this.value.toLowerCase()
-
-productList=productList.filter(p=>p.name.toLowerCase().includes(term))
+saveProducts()
 
 loadProducts()
 
-})
+}
+
+function order(name,price){
+
+let message="Hi I want to order:\n"+name+" - $"+price
+
+let url="https://wa.me/"+phone+"?text="+encodeURIComponent(message)
+
+location.href=url
+
+}
 
 loadProducts()
 
@@ -258,6 +166,5 @@ loadProducts()
 
 </body>
 </html>
-
     
                 
