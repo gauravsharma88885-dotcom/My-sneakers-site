@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Sneaker Store</title>
+<title>DELHIKICKS</title>
 
 <style>
 
@@ -18,152 +16,277 @@ header{
 background:#2874f0;
 color:white;
 padding:15px;
-text-align:center;
-font-size:22px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-.search{
-display:flex;
-justify-content:center;
-padding:15px;
-background:white;
+header h1{
+margin:0;
+font-size:20px;
 }
 
 .search input{
-width:300px;
-padding:10px;
-border:1px solid #ccc;
+padding:8px;
+border:none;
 border-radius:4px;
+}
+
+.cartBtn{
+background:#fb641b;
+border:none;
+padding:8px 12px;
+color:white;
+border-radius:4px;
+cursor:pointer;
 }
 
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
 gap:20px;
 padding:20px;
 }
 
 .card{
 background:white;
-padding:15px;
+padding:10px;
 border-radius:6px;
 box-shadow:0 2px 6px rgba(0,0,0,0.1);
 text-align:center;
-transition:0.3s;
-}
-
-.card:hover{
-transform:scale(1.03);
+position:relative;
 }
 
 .card img{
 width:100%;
 height:180px;
-object-fit:cover;
+object-fit:contain;
+cursor:pointer;
 }
 
-.price{
-color:#388e3c;
-font-size:18px;
-font-weight:bold;
+.wish{
+position:absolute;
+right:10px;
+top:10px;
+font-size:20px;
+cursor:pointer;
+}
+
+.title{
+font-size:14px;
+margin:10px 0;
 }
 
 .rating{
-color:#ff9800;
-margin:5px 0;
+background:#388e3c;
+color:white;
+padding:2px 6px;
+font-size:12px;
+border-radius:4px;
+display:inline-block;
+}
+
+.price{
+font-weight:bold;
+}
+
+.old{
+text-decoration:line-through;
+color:gray;
+font-size:12px;
 }
 
 button{
 background:#fb641b;
 border:none;
-padding:10px;
 color:white;
-width:100%;
+padding:8px;
 margin-top:8px;
-cursor:pointer;
+width:100%;
 border-radius:4px;
+cursor:pointer;
 }
 
-button:hover{
-background:#e85a17;
+.cart{
+position:fixed;
+right:0;
+top:0;
+width:300px;
+height:100%;
+background:white;
+box-shadow:-2px 0 8px rgba(0,0,0,0.2);
+padding:15px;
+display:none;
+overflow:auto;
+}
+
+.cart-item{
+margin-bottom:8px;
+}
+
+.remove{
+background:red;
+width:auto;
+padding:2px 6px;
+margin-left:10px;
+}
+
+.total{
+font-weight:bold;
+margin-top:10px;
+}
+
+.order{
+background:green;
+}
+
+.menu{
+position:fixed;
+left:-260px;
+top:0;
+width:250px;
+height:100vh;
+background:white;
+box-shadow:2px 0 8px rgba(0,0,0,0.2);
+padding:20px;
+transition:0.3s;
+z-index:999;
+}
+
+.menu button{
+display:block;
+width:100%;
+background:none;
+border:none;
+padding:12px;
+text-align:left;
+font-size:16px;
+cursor:pointer;
+color:black;
+}
+
+.menu button:hover{
+background:#f1f3f6;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
-Flipkart Style Sneaker Store
-</header>
+
+<button onclick="openMenu()" style="background:none;border:none;color:white;font-size:22px">
+☰
+</button>
+
+<h1>DELHIKICKS</h1>
 
 <div class="search">
-<input type="text" id="search" placeholder="Search sneakers...">
+<input type="text" id="search" placeholder="Search sneakers">
 </div>
+
+<button class="cartBtn" onclick="toggleCart()">Cart</button>
+
+</header>
 
 <div class="products" id="products"></div>
 
+<div class="menu" id="menu">
+
+<button onclick="closeMenu()">✖ Close</button>
+
+<h3>Sneaker Store</h3>
+
+<button onclick="login()">Login</button>
+<button onclick="join()">Join</button>
+
+<hr>
+
+<button onclick="myAccount()">My Account</button>
+<button onclick="trackOrder()">Track Order</button>
+<button onclick="stores()">Stores</button>
+<button onclick="help()">Help</button>
+<button onclick="wishlist()">Wishlist</button>
+
+</div>
+
+<div class="cart" id="cart">
+
+<button onclick="toggleCart()" style="background:red;width:auto;padding:4px">✖</button>
+
+<h2>Your Cart</h2>
+
+<div id="cartItems"></div>
+
+<div class="total">Total ₹<span id="total">0</span></div>
+
+<button class="order" onclick="order()">Order on WhatsApp</button>
+
+</div>
+
 <script>
+
+function openMenu(){
+document.getElementById("menu").style.left="0"
+}
+
+function closeMenu(){
+document.getElementById("menu").style.left="-260px"
+}
+
+function login(){ alert("Login coming soon") }
+function join(){ alert("Signup coming soon") }
+function myAccount(){ alert("My Account page") }
+
+function trackOrder(){
+let id=prompt("Enter Order ID")
+if(id) alert("Tracking Order "+id)
+}
+
+function stores(){ alert("Stores in Delhi, Mumbai, Bangalore") }
+function help(){ alert("Contact support on WhatsApp") }
+function wishlist(){ alert("Wishlist coming soon") }
 
 let phone="918398876868"
 
 let sneakers=[
-
-{name:"Nike Air Force 1",price:130,img:"https://images.stockx.com/images/Nike-Air-Force-1-07-White.jpg"},
-{name:"Air Jordan 1",price:170,img:"https://images.stockx.com/images/Air-Jordan-1-Retro-High-OG-Chicago-Reimagined.jpg"},
-{name:"Yeezy 350",price:220,img:"https://images.stockx.com/images/adidas-Yeezy-Boost-350-V2-Zebra-2023.jpg"},
-{name:"Nike Dunk Low",price:110,img:"https://images.stockx.com/images/Nike-Dunk-Low-Panda-2021.jpg"},
-{name:"Air Jordan 4",price:190,img:"https://images.stockx.com/images/Air-Jordan-4-Retro-Military-Black.jpg"},
-
-{name:"Yeezy 700",price:250,img:"https://images.stockx.com/images/adidas-Yeezy-Boost-700-Wave-Runner-2018.jpg"},
-{name:"Nike Air Max",price:160,img:"https://images.stockx.com/images/Nike-Air-Max-90-White.jpg"},
-{name:"Jordan 11",price:210,img:"https://images.stockx.com/images/Air-Jordan-11-Retro-Concord-2018.jpg"},
-{name:"Nike Blazer",price:120,img:"https://images.stockx.com/images/Nike-Blazer-Mid-77-Vintage-White-Black.jpg"},
-{name:"Yeezy Foam",price:140,img:"https://images.stockx.com/images/adidas-Yeezy-Foam-RNNR-Sand.jpg"},
-
-{name:"Jordan 3",price:180,img:"https://images.stockx.com/images/Air-Jordan-3-Retro-White-Cement-Reimagined.jpg"},
-{name:"Nike Dunk Grey",price:115,img:"https://images.stockx.com/images/Nike-Dunk-Low-Grey-Fog.jpg"},
-{name:"Air Max 97",price:170,img:"https://images.stockx.com/images/Nike-Air-Max-97-Silver-Bullet.jpg"},
-{name:"Jordan 5",price:200,img:"https://images.stockx.com/images/Air-Jordan-5-Retro-Fire-Red-2020.jpg"},
-{name:"Yeezy Slide",price:90,img:"https://images.stockx.com/images/adidas-Yeezy-Slide-Bone.jpg"},
-
-{name:"Jordan 6",price:195,img:"https://images.stockx.com/images/Air-Jordan-6-Retro-Infrared-2019.jpg"},
-{name:"Nike Pegasus",price:140,img:"https://images.stockx.com/images/Nike-Air-Zoom-Pegasus-38-White.jpg"},
-{name:"Jordan 12",price:220,img:"https://images.stockx.com/images/Air-Jordan-12-Retro-Playoffs-2022.jpg"},
-{name:"Nike Cortez",price:100,img:"https://images.stockx.com/images/Nike-Cortez-White-Black.jpg"},
-{name:"Yeezy 500",price:210,img:"https://images.stockx.com/images/adidas-Yeezy-500-Blush.jpg"},
-
-{name:"Jordan 13",price:205,img:"https://images.stockx.com/images/Air-Jordan-13-Retro-Bred-2017.jpg"},
-{name:"Nike React",price:150,img:"https://images.stockx.com/images/Nike-React-Vision-White.jpg"},
-{name:"Jordan 14",price:210,img:"https://images.stockx.com/images/Air-Jordan-14-Retro-Last-Shot-2018.jpg"},
-{name:"Nike Vapormax",price:230,img:"https://images.stockx.com/images/Nike-Air-VaporMax-Plus-Black.jpg"},
-{name:"Yeezy 380",price:200,img:"https://images.stockx.com/images/adidas-Yeezy-Boost-380-Alien.jpg"}
-
+{name:"Nike Air Force 1",price:2999,old:3999,img:"https://picsum.photos/300?1"},
+{name:"Nike Dunk Low Panda",price:3499,old:4599,img:"https://picsum.photos/300?2"},
+{name:"Nike Air Max 90",price:3799,old:4999,img:"https://picsum.photos/300?3"},
+{name:"Nike Air Max 97",price:3999,old:5299,img:"https://picsum.photos/300?4"},
+{name:"Adidas Yeezy 350",price:6999,old:8999,img:"https://picsum.photos/300?5"},
+{name:"Adidas Ultraboost",price:5999,old:7799,img:"https://picsum.photos/300?6"},
+{name:"Puma RS-X",price:3499,old:4499,img:"https://picsum.photos/300?7"},
+{name:"Puma Cali",price:3199,old:4199,img:"https://picsum.photos/300?8"}
 ]
+
+let cart=[]
 
 function loadProducts(list){
 
 let container=document.getElementById("products")
 container.innerHTML=""
 
-list.forEach(p=>{
+list.forEach((p,i)=>{
 
 container.innerHTML+=`
 
 <div class="card">
 
-<img src="${p.img}">
+<div class="wish">❤️</div>
 
-<h3>${p.name}</h3>
+<img src="${p.img}" onclick="productDetail(${i})">
 
-<div class="rating">⭐⭐⭐⭐☆</div>
+<div class="title">${p.name}</div>
 
-<div class="price">$${p.price}</div>
+<div class="rating">4.3 ★</div>
 
-<button onclick="order('${p.name}',${p.price})">
-Order on WhatsApp
-</button>
+<div class="price">₹${p.price}</div>
+
+<div class="old">₹${p.old}</div>
+
+<button onclick="addCart(${i})">Add to Cart</button>
 
 </div>
 
@@ -173,13 +296,79 @@ Order on WhatsApp
 
 }
 
-function order(name,price){
+function productDetail(i){
 
-let message="Hi I want to buy "+name+" - $"+price
+let p=sneakers[i]
 
-let url="https://wa.me/"+phone+"?text="+encodeURIComponent(message)
+alert(
+"Product: "+p.name+
+"\nPrice: ₹"+p.price+
+"\nOld Price: ₹"+p.old+
+"\n\nBest selling sneaker 👟"
+)
 
-location.href=url
+}
+
+function addCart(i){
+
+cart.push(sneakers[i])
+updateCart()
+
+}
+
+function removeCart(index){
+
+cart.splice(index,1)
+updateCart()
+
+}
+
+function updateCart(){
+
+let cartItems=document.getElementById("cartItems")
+let total=0
+
+cartItems.innerHTML=""
+
+cart.forEach((item,index)=>{
+
+total+=item.price
+
+cartItems.innerHTML+=`
+
+<div class="cart-item">
+${item.name} - ₹${item.price}
+<button class="remove" onclick="removeCart(${index})">X</button>
+</div>
+
+`
+
+})
+
+document.getElementById("total").innerText=total
+
+}
+
+function toggleCart(){
+
+let c=document.getElementById("cart")
+c.style.display = c.style.display==="block" ? "none":"block"
+
+}
+
+function order(){
+
+let message="Hi I want to order:%0A"
+let total=0
+
+cart.forEach(item=>{
+message+=item.name+" ₹"+item.price+"%0A"
+total+=item.price
+})
+
+message+="Total ₹"+total
+
+window.open("https://wa.me/"+phone+"?text="+message)
 
 }
 
@@ -199,3 +388,4 @@ loadProducts(sneakers)
 
 </body>
     </html>
+
