@@ -1,286 +1,263 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realistic Sneaker Showroom - 15 Models</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .store-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+<title>Sneaker Vault</title>
 
-        .store-header h1 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #2c3e50;
-        }
+<style>
 
-        .sneaker-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+body{
+font-family:Arial;
+background:#0f0f0f;
+color:white;
+margin:0;
+padding:20px;
+}
 
-        .sneaker-item {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
+h1{
+text-align:center;
+margin-bottom:30px;
+}
 
-        .sneaker-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
+.highlight{
+color:#ff4747;
+}
 
-        /* Sneaker image container to maintain aspect ratio and professional look */
-        .image-container {
-            width: 100%;
-            height: 250px;
-            background-color: #eaeaea; /* Placeholder color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+.search{
+display:flex;
+justify-content:center;
+margin-bottom:30px;
+}
 
-        .sneaker-img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain; /* Ensure full sneaker is visible */
-        }
+.search input{
+padding:10px;
+width:250px;
+border-radius:20px;
+border:none;
+background:#1f1f1f;
+color:white;
+}
 
-        .sneaker-info {
-            padding: 20px;
-        }
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+max-width:1100px;
+margin:auto;
+}
 
-        .sneaker-name {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 0 0 10px;
-        }
+.card{
+background:#1b1b1b;
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
 
-        .sneaker-model {
-            font-size: 1rem;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
+.card img{
+width:100%;
+border-radius:10px;
+}
 
-        .price-tag {
-            font-size: 1.1rem;
-            color: #27ae60;
-            font-weight: bold;
-        }
+.price{
+color:#ff4747;
+font-size:20px;
+margin:10px 0;
+}
 
-        /* Badges for specific status (like "BEST SELLER" or "NEW") */
-        .status-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #c0392b; /* Red for emphasis */
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-    </style>
+button{
+background:#ff4747;
+border:none;
+padding:10px 15px;
+border-radius:20px;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff6b6b;
+}
+
+.cart{
+position:fixed;
+right:20px;
+top:20px;
+background:#1b1b1b;
+padding:15px;
+width:260px;
+border-radius:10px;
+}
+
+.cart h3{
+margin-top:0;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+font-size:14px;
+margin-bottom:6px;
+}
+
+.remove{
+color:red;
+cursor:pointer;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<div class="store-header">
-    <h1>URBAN KICKS SHOWROOM</h1>
-    <p>Premium Collection - New Arrivals</p>
+<h1>Sneaker <span class="highlight">Vault</span></h1>
+
+<div class="search">
+<input type="text" id="search" placeholder="Search sneakers">
 </div>
 
-<div class="sneaker-grid">
+<div class="gallery" id="products"></div>
 
-    <div class="sneaker-item">
-        <span class="status-badge">Best Seller</span>
-        <div class="image-container">
-            <img src="sneaker1.jpg" alt="Nike Dunk Low Panda" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Nike</h3>
-            <p class="sneaker-model">Dunk Low 'Panda' (Black/White)</p>
-            <p class="price-tag">₹11,995</p>
-        </div>
-    </div>
+<div class="cart">
 
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker2.jpg" alt="Adidas Yeezy 350 V2" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Adidas</h3>
-            <p class="sneaker-model">Yeezy Boost 350 V2 'Carbon Beluga'</p>
-            <p class="price-tag">₹23,999</p>
-        </div>
-    </div>
+<h3>🛒 Cart</h3>
 
-    <div class="sneaker-item">
-        <span class="status-badge">Classic</span>
-        <div class="image-container">
-            <img src="sneaker3.jpg" alt="Air Jordan 1 High Chicago" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Jordan</h3>
-            <p class="sneaker-model">1 Retro High 'Chicago' (2022)</p>
-            <p class="price-tag">₹34,500</p>
-        </div>
-    </div>
+<div id="cartItems"></div>
 
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker4.jpg" alt="New Balance 550" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">New Balance</h3>
-            <p class="sneaker-model">550 'White/Green' (Original)</p>
-            <p class="price-tag">₹14,200</p>
-        </div>
-    </div>
+<p>Total: $<span id="total">0</span></p>
 
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker5.jpg" alt="Converse Chuck 70 Hi" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Converse</h3>
-            <p class="sneaker-model">Chuck Taylor 70 Hi 'Natural Ivory'</p>
-            <p class="price-tag">₹6,499</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker6.jpg" alt="Puma Suede Classic" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Puma</h3>
-            <p class="sneaker-model">Suede Classic XXI 'Black/White'</p>
-            <p class="price-tag">₹5,799</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker7.jpg" alt="Asics GEL-Lyte III" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Asics</h3>
-            <p class="sneaker-model">GEL-Lyte III OG 'Olive'</p>
-            <p class="price-tag">₹10,500</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker8.jpg" alt="Vans Old Skool" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Vans</h3>
-            <p class="sneaker-model">Old Skool Classic 'Black/White'</p>
-            <p class="price-tag">₹4,999</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker9.jpg" alt="Reebok Club C 85" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Reebok</h3>
-            <p class="sneaker-model">Club C 85 Vintage 'Cream/Green'</p>
-            <p class="price-tag">₹8,995</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker10.jpg" alt="Saucony Shadow 6000" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Saucony</h3>
-            <p class="sneaker-model">Shadow 6000 'White/Navy'</p>
-            <p class="price-tag">₹9,800</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker11.jpg" alt="Fila Disruptor II" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Fila</h3>
-            <p class="sneaker-model">Disruptor II 'Pure White'</p>
-            <p class="price-tag">₹7,200</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <span class="status-badge">New</span>
-        <div class="image-container">
-            <img src="sneaker12.jpg" alt="Diadora N9000 H Ita" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Diadora</h3>
-            <p class="sneaker-model">N9000 H Ita 'Italia'</p>
-            <p class="price-tag">₹16,500</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker13.jpg" alt="Salomon XT-6" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Salomon</h3>
-            <p class="sneaker-model">XT-6 'Lunar Rock/Magnet'</p>
-            <p class="price-tag">₹19,000</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker14.jpg" alt="Hoka Clifton 9" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Hoka</h3>
-            <p class="sneaker-model">Clifton 9 'Nimbus Cloud'</p>
-            <p class="price-tag">₹13,500</p>
-        </div>
-    </div>
-
-    <div class="sneaker-item">
-        <div class="image-container">
-            <img src="sneaker15.jpg" alt="Mizuno Wave Rider 1" class="sneaker-img">
-        </div>
-        <div class="sneaker-info">
-            <h3 class="sneaker-name">Mizuno</h3>
-            <p class="sneaker-model">Wave Rider 1 'White/Directoire Blue'</p>
-            <p class="price-tag">₹12,800</p>
-        </div>
-    </div>
+<button onclick="order()">Order on WhatsApp</button>
 
 </div>
+
+<script>
+
+let phone="918398876868"
+
+let productList=[
+
+{name:"Air Jordan 1",price:170,img:"https://images.stockx.com/images/Air-Jordan-1-Retro-High-OG-Chicago-Reimagined.jpg"},
+
+{name:"Yeezy 350",price:220,img:"https://images.stockx.com/images/adidas-Yeezy-Boost-350-V2-Zebra-2023.jpg"},
+
+{name:"Nike Dunk Low",price:110,img:"https://images.stockx.com/images/Nike-Dunk-Low-Panda-2021.jpg"},
+
+{name:"Air Force 1",price:130,img:"https://images.stockx.com/images/Nike-Air-Force-1-07-White.jpg"}
+
+]
+
+let cart=[]
+
+function loadProducts(){
+
+let container=document.getElementById("products")
+container.innerHTML=""
+
+productList.forEach((p,i)=>{
+
+container.innerHTML+=`
+
+<div class="card">
+
+<img src="${p.img}">
+
+<h3>${p.name}</h3>
+
+<div class="price">$${p.price}</div>
+
+<button onclick="addCart(${i})">Add to Cart</button>
+
+</div>
+
+`
+
+})
+
+}
+
+function addCart(index){
+
+cart.push(productList[index])
+
+updateCart()
+
+}
+
+function removeCart(i){
+
+cart.splice(i,1)
+
+updateCart()
+
+}
+
+function updateCart(){
+
+let cartItems=document.getElementById("cartItems")
+
+cartItems.innerHTML=""
+
+let total=0
+
+cart.forEach((item,i)=>{
+
+total+=item.price
+
+cartItems.innerHTML+=`
+
+<div class="cart-item">
+
+${item.name} - $${item.price}
+
+<span class="remove" onclick="removeCart(${i})">x</span>
+
+</div>
+
+`
+
+})
+
+document.getElementById("total").innerText=total
+
+}
+
+function order(){
+
+let message="Hi I want to order:%0A"
+
+let total=0
+
+cart.forEach(item=>{
+
+message+=item.name+" - $"+item.price+"%0A"
+
+total+=item.price
+
+})
+
+message+="Total: $"+total
+
+window.open("https://wa.me/"+phone+"?text="+message)
+
+}
+
+document.getElementById("search").addEventListener("keyup",function(){
+
+let term=this.value.toLowerCase()
+
+productList=productList.filter(p=>p.name.toLowerCase().includes(term))
+
+loadProducts()
+
+})
+
+loadProducts()
+
+</script>
 
 </body>
-</html>   
+</html>
+
+    
                 
