@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DELHIKICKS</title>
 
 <style>
@@ -30,6 +31,7 @@ font-size:20px;
 padding:8px;
 border:none;
 border-radius:4px;
+width:200px;
 }
 
 .cartBtn{
@@ -54,22 +56,12 @@ padding:10px;
 border-radius:6px;
 box-shadow:0 2px 6px rgba(0,0,0,0.1);
 text-align:center;
-position:relative;
 }
 
 .card img{
 width:100%;
 height:180px;
 object-fit:contain;
-cursor:pointer;
-}
-
-.wish{
-position:absolute;
-right:10px;
-top:10px;
-font-size:20px;
-cursor:pointer;
 }
 
 .title{
@@ -88,6 +80,7 @@ display:inline-block;
 
 .price{
 font-weight:bold;
+margin-top:5px;
 }
 
 .old{
@@ -107,6 +100,10 @@ border-radius:4px;
 cursor:pointer;
 }
 
+button:hover{
+background:#e85a17;
+}
+
 .cart{
 position:fixed;
 right:0;
@@ -120,15 +117,13 @@ display:none;
 overflow:auto;
 }
 
-.cart-item{
-margin-bottom:8px;
+.cart h2{
+margin-top:0;
 }
 
-.remove{
-background:red;
-width:auto;
-padding:2px 6px;
-margin-left:10px;
+.cart-item{
+font-size:14px;
+margin-bottom:6px;
 }
 
 .total{
@@ -138,6 +133,7 @@ margin-top:10px;
 
 .order{
 background:green;
+margin-top:10px;
 }
 
 .menu{
@@ -151,6 +147,7 @@ box-shadow:2px 0 8px rgba(0,0,0,0.2);
 padding:20px;
 transition:0.3s;
 z-index:999;
+overflow-y:auto;
 }
 
 .menu button{
@@ -176,11 +173,11 @@ background:#f1f3f6;
 
 <header>
 
-<button onclick="openMenu()" style="background:none;border:none;color:white;font-size:22px">
+<button onclick="openMenu()" style="background:none;border:none;color:white;font-size:22px;cursor:pointer">
 ☰
 </button>
 
-<h1>DELHIKICKS</h1>
+<h1>DELHIKICKS Sneaker Store</h1>
 
 <div class="search">
 <input type="text" id="search" placeholder="Search sneakers">
@@ -194,26 +191,39 @@ background:#f1f3f6;
 
 <div class="menu" id="menu">
 
-<button onclick="closeMenu()">✖ Close</button>
+<button onclick="closeMenu()" style="font-size:20px">✖ Close</button>
 
 <h3>Sneaker Store</h3>
 
 <button onclick="login()">Login</button>
+
 <button onclick="join()">Join</button>
 
 <hr>
 
 <button onclick="myAccount()">My Account</button>
+
 <button onclick="trackOrder()">Track Order</button>
+
 <button onclick="stores()">Stores</button>
+
 <button onclick="help()">Help</button>
+
 <button onclick="wishlist()">Wishlist</button>
 
 </div>
 
 <div class="cart" id="cart">
 
-<button onclick="toggleCart()" style="background:red;width:auto;padding:4px">✖</button>
+<button onclick="toggleCart()" style="
+background:red;
+color:white;
+border:none;
+padding:6px 10px;
+float:right;
+cursor:pointer;
+border-radius:4px;
+">✖</button>
 
 <h2>Your Cart</h2>
 
@@ -226,8 +236,8 @@ background:#f1f3f6;
 </div>
 
 <script>
-
-function openMenu(){
+  
+  function openMenu(){
 document.getElementById("menu").style.left="0"
 }
 
@@ -235,30 +245,101 @@ function closeMenu(){
 document.getElementById("menu").style.left="-260px"
 }
 
-function login(){ alert("Login coming soon") }
-function join(){ alert("Signup coming soon") }
-function myAccount(){ alert("My Account page") }
-
-function trackOrder(){
-let id=prompt("Enter Order ID")
-if(id) alert("Tracking Order "+id)
+function login(){
+alert("Login system coming soon")
 }
 
-function stores(){ alert("Stores in Delhi, Mumbai, Bangalore") }
-function help(){ alert("Contact support on WhatsApp") }
-function wishlist(){ alert("Wishlist coming soon") }
+function join(){
+alert("Account create page coming soon")
+}
+
+function myAccount(){
+alert("Opening My Account")
+}
+
+function trackOrder(){
+let orderId = prompt("Enter your Order ID")
+if(orderId){
+alert("Tracking order: " + orderId)
+}
+}
+
+function stores(){
+alert("Our stores are in Delhi, Mumbai and Bangalore")
+}
+
+function help(){
+alert("Contact support on WhatsApp")
+}
+
+function wishlist(){
+alert("Wishlist feature coming soon")
+}
 
 let phone="918398876868"
 
 let sneakers=[
+
 {name:"Nike Air Force 1",price:2999,old:3999,img:"https://picsum.photos/300?1"},
 {name:"Nike Dunk Low Panda",price:3499,old:4599,img:"https://picsum.photos/300?2"},
 {name:"Nike Air Max 90",price:3799,old:4999,img:"https://picsum.photos/300?3"},
 {name:"Nike Air Max 97",price:3999,old:5299,img:"https://picsum.photos/300?4"},
-{name:"Adidas Yeezy 350",price:6999,old:8999,img:"https://picsum.photos/300?5"},
-{name:"Adidas Ultraboost",price:5999,old:7799,img:"https://picsum.photos/300?6"},
-{name:"Puma RS-X",price:3499,old:4499,img:"https://picsum.photos/300?7"},
-{name:"Puma Cali",price:3199,old:4199,img:"https://picsum.photos/300?8"}
+{name:"Nike React Vision",price:3599,old:4699,img:"https://picsum.photos/300?5"},
+
+{name:"Air Jordan 1 Retro",price:4999,old:6599,img:"https://picsum.photos/300?6"},
+{name:"Air Jordan 3",price:5299,old:6899,img:"https://picsum.photos/300?7"},
+{name:"Air Jordan 4",price:5599,old:7299,img:"https://picsum.photos/300?8"},
+{name:"Air Jordan 5",price:5499,old:7199,img:"https://picsum.photos/300?9"},
+{name:"Air Jordan 6",price:5699,old:7499,img:"https://picsum.photos/300?10"},
+
+{name:"Adidas Yeezy 350",price:6999,old:8999,img:"https://picsum.photos/300?11"},
+{name:"Adidas Yeezy 500",price:7299,old:9299,img:"https://picsum.photos/300?12"},
+{name:"Adidas Yeezy 700",price:7599,old:9699,img:"https://picsum.photos/300?13"},
+{name:"Adidas Ultraboost",price:5999,old:7799,img:"https://picsum.photos/300?14"},
+{name:"Adidas NMD R1",price:5699,old:7499,img:"https://picsum.photos/300?15"},
+
+{name:"Puma RS-X",price:3499,old:4499,img:"https://picsum.photos/300?16"},
+{name:"Puma Future Rider",price:3299,old:4299,img:"https://picsum.photos/300?17"},
+{name:"Puma Cali",price:3199,old:4199,img:"https://picsum.photos/300?18"},
+{name:"Puma Mirage Sport",price:3399,old:4399,img:"https://picsum.photos/300?19"},
+{name:"Puma Suede Classic",price:2999,old:3899,img:"https://picsum.photos/300?20"},
+
+{name:"Nike Blazer Mid",price:3199,old:4099,img:"https://picsum.photos/300?21"},
+{name:"Nike Cortez",price:2899,old:3699,img:"https://picsum.photos/300?22"},
+{name:"Nike Pegasus 38",price:3599,old:4699,img:"https://picsum.photos/300?23"},
+{name:"Nike Vapormax",price:5999,old:7899,img:"https://picsum.photos/300?24"},
+{name:"Nike Zoom Fly",price:3799,old:4899,img:"https://picsum.photos/300?25"},
+
+{name:"Jordan 11 Concord",price:6299,old:8199,img:"https://picsum.photos/300?26"},
+{name:"Jordan 12 Playoffs",price:6399,old:8299,img:"https://picsum.photos/300?27"},
+{name:"Jordan 13 Bred",price:6499,old:8399,img:"https://picsum.photos/300?28"},
+{name:"Jordan 14 Last Shot",price:6599,old:8499,img:"https://picsum.photos/300?29"},
+{name:"Jordan 15 Retro",price:6699,old:8599,img:"https://picsum.photos/300?30"},
+
+{name:"Adidas Forum Low",price:3299,old:4199,img:"https://picsum.photos/300?31"},
+{name:"Adidas Superstar",price:3499,old:4499,img:"https://picsum.photos/300?32"},
+{name:"Adidas Stan Smith",price:3599,old:4599,img:"https://picsum.photos/300?33"},
+{name:"Adidas Ozweego",price:3899,old:4899,img:"https://picsum.photos/300?34"},
+{name:"Adidas ZX 2K",price:3799,old:4799,img:"https://picsum.photos/300?35"},
+
+{name:"Puma X-Ray",price:2999,old:3899,img:"https://picsum.photos/300?36"},
+{name:"Puma Wild Rider",price:3299,old:4299,img:"https://picsum.photos/300?37"},
+{name:"Puma Cell Vive",price:3199,old:4099,img:"https://picsum.photos/300?38"},
+{name:"Puma RS Fast",price:3499,old:4499,img:"https://picsum.photos/300?39"},
+{name:"Puma Electron",price:2899,old:3699,img:"https://picsum.photos/300?40"},
+
+{name:"Nike Air Zoom",price:3999,old:4999,img:"https://picsum.photos/300?41"},
+{name:"Nike Infinity Run",price:4299,old:5399,img:"https://picsum.photos/300?42"},
+{name:"Nike Free RN",price:3199,old:4199,img:"https://picsum.photos/300?43"},
+{name:"Nike Revolution",price:2799,old:3599,img:"https://picsum.photos/300?44"},
+{name:"Nike Downshifter",price:2699,old:3499,img:"https://picsum.photos/300?45"},
+
+{name:"Adidas Solar Boost",price:3899,old:4899,img:"https://picsum.photos/300?46"},
+{name:"Adidas AlphaEdge",price:3799,old:4799,img:"https://picsum.photos/300?47"},
+{name:"Adidas Response",price:3399,old:4399,img:"https://picsum.photos/300?48"},
+{name:"Adidas Lite Racer",price:2899,old:3699,img:"https://picsum.photos/300?49"},
+{name:"Adidas Duramo",price:2799,old:3599,img:"https://picsum.photos/300?50"}
+
 ]
 
 let cart=[]
@@ -266,6 +347,7 @@ let cart=[]
 function loadProducts(list){
 
 let container=document.getElementById("products")
+
 container.innerHTML=""
 
 list.forEach((p,i)=>{
@@ -274,9 +356,7 @@ container.innerHTML+=`
 
 <div class="card">
 
-<div class="wish">❤️</div>
-
-<img src="${p.img}" onclick="productDetail(${i})">
+<img src="${p.img}">
 
 <div class="title">${p.name}</div>
 
@@ -296,29 +376,10 @@ container.innerHTML+=`
 
 }
 
-function productDetail(i){
+function addCart(index){
 
-let p=sneakers[i]
+cart.push(sneakers[index])
 
-alert(
-"Product: "+p.name+
-"\nPrice: ₹"+p.price+
-"\nOld Price: ₹"+p.old+
-"\n\nBest selling sneaker 👟"
-)
-
-}
-
-function addCart(i){
-
-cart.push(sneakers[i])
-updateCart()
-
-}
-
-function removeCart(index){
-
-cart.splice(index,1)
 updateCart()
 
 }
@@ -326,21 +387,17 @@ updateCart()
 function updateCart(){
 
 let cartItems=document.getElementById("cartItems")
+
 let total=0
 
 cartItems.innerHTML=""
 
-cart.forEach((item,index)=>{
+cart.forEach(item=>{
 
 total+=item.price
 
 cartItems.innerHTML+=`
-
-<div class="cart-item">
-${item.name} - ₹${item.price}
-<button class="remove" onclick="removeCart(${index})">X</button>
-</div>
-
+<div class="cart-item">${item.name} - ₹${item.price}</div>
 `
 
 })
@@ -351,24 +408,28 @@ document.getElementById("total").innerText=total
 
 function toggleCart(){
 
-let c=document.getElementById("cart")
-c.style.display = c.style.display==="block" ? "none":"block"
+let cartBox=document.getElementById("cart")
+
+cartBox.style.display = cartBox.style.display==="block" ? "none" : "block"
 
 }
 
 function order(){
 
 let message="Hi I want to order:%0A"
+
 let total=0
 
 cart.forEach(item=>{
-message+=item.name+" ₹"+item.price+"%0A"
+message+=item.name+" - ₹"+item.price+"%0A"
 total+=item.price
 })
 
 message+="Total ₹"+total
 
-window.open("https://wa.me/"+phone+"?text="+message)
+let url="https://wa.me/"+phone+"?text="+message
+
+location.href=url
 
 }
 
@@ -388,4 +449,3 @@ loadProducts(sneakers)
 
 </body>
     </html>
-
